@@ -1,0 +1,11 @@
+/node_modules
+/tests
+/.git
+/.github
+/.ai
+/storage/logs/*
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+*.log
+*.zip

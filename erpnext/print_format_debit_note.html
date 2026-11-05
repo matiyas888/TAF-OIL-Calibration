@@ -1,0 +1,214 @@
+<!--
+  ERPNEXT PRINT FORMAT: Petroleum Debit Note Voucher
+  ===================================================
+  How to use in ERPNext:
+  1. Go to: Desk > Customization > Print Format > New
+  2. DocType: Transhipment Order
+  3. Standard: No | Custom Format: Yes
+  4. Paste the HTML/Jinja template below.
+  ===================================================
+-->
+
+<div class="debit-note-wrapper" style="font-family: Arial, sans-serif; color: #1e293b; padding: 25px; line-height: 1.5;">
+
+    <!-- Voucher Header -->
+    <div style="border-bottom: 2px solid #0f172a; padding-bottom: 12px; margin-bottom: 20px; text-align: center;">
+        <h2 style="margin: 0; font-size: 24px; font-weight: 900; letter-spacing: 1px; color: #0f172a; text-transform: uppercase;">
+            TAF OIL ETHIOPIA PLC
+        </h2>
+        <p style="margin: 4px 0 0; font-size: 13px; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; color: #64748b;">
+            Petroleum Product Shortage & Debit Note Voucher
+        </p>
+        <p style="margin: 2px 0 0; font-size: 11px; color: #94a3b8;">
+            (Replacement for MS Access RPTtempdebitnote)
+        </p>
+    </div>
+
+    <!-- Meta Information Grid -->
+    <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 13px;">
+        <tr>
+            <td style="width: 33%; vertical-align: top; padding: 4px 8px;">
+                <span style="font-size: 10px; color: #64748b; font-weight: bold; text-transform: uppercase; display: block;">Debit Note Number:</span>
+                <strong style="font-size: 16px; font-family: monospace; color: #4338ca;">DN-{{ doc.to_number or doc.name }}</strong>
+            </td>
+            <td style="width: 33%; vertical-align: top; padding: 4px 8px;">
+                <span style="font-size: 10px; color: #64748b; font-weight: bold; text-transform: uppercase; display: block;">Truck Plate Number:</span>
+                <strong style="font-size: 15px; font-family: monospace; text-transform: uppercase;">{{ doc.plate_no or 'N/A' }}</strong>
+            </td>
+            <td style="width: 33%; vertical-align: top; padding: 4px 8px;">
+                <span style="font-size: 10px; color: #64748b; font-weight: bold; text-transform: uppercase; display: block;">Driver Name:</span>
+                <strong style="font-size: 14px; color: #0f172a;">{{ doc.driver_name or 'N/A' }}</strong>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 4px 8px;">
+                <span style="font-size: 10px; color: #64748b; font-weight: bold; text-transform: uppercase; display: block;">Transfer Order Ref:</span>
+                <span style="font-family: monospace;">{{ doc.reference or doc.to_number or doc.name }}</span>
+            </td>
+            <td style="padding: 4px 8px;">
+                <span style="font-size: 10px; color: #64748b; font-weight: bold; text-transform: uppercase; display: block;">Trailer Plate:</span>
+                <span style="font-family: monospace;">{{ doc.trailer_plate_no or 'N/A' }}</span>
+            </td>
+            <td style="padding: 4px 8px;">
+                <span style="font-size: 10px; color: #64748b; font-weight: bold; text-transform: uppercase; display: block;">Driver Licence No:</span>
+                <span style="font-family: monospace;">{{ doc.driver_licence_no or 'N/A' }}</span>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 4px 8px;">
+                <span style="font-size: 10px; color: #64748b; font-weight: bold; text-transform: uppercase; display: block;">Transaction Date:</span>
+                <span>{{ doc.order_date or frappe.utils.today() }}</span>
+            </td>
+            <td style="padding: 4px 8px;">
+                <span style="font-size: 10px; color: #64748b; font-weight: bold; text-transform: uppercase; display: block;">Carrier / Transporter:</span>
+                <strong style="color: #334155;">{{ doc.carrier_name or 'TAF Oil Fleet' }}</strong>
+            </td>
+            <td style="padding: 4px 8px;">
+                <span style="font-size: 10px; color: #64748b; font-weight: bold; text-transform: uppercase; display: block;">Product Code:</span>
+                <strong style="color: #4338ca;">{{ doc.product_item_number or 'JET-A1' }}</strong>
+            </td>
+        </tr>
+    </table>
+
+    <!-- Volume & ASTM Conversion Breakdown Table -->
+    <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 12px; border: 1px solid #cbd5e1;">
+        <thead style="background-color: #f1f5f9; text-transform: uppercase; font-size: 11px; color: #475569;">
+            <tr>
+                <th style="padding: 8px 12px; text-align: left; border: 1px solid #cbd5e1;">Delivery Stage</th>
+                <th style="padding: 8px 12px; text-align: right; border: 1px solid #cbd5e1;">Observed (L)</th>
+                <th style="padding: 8px 12px; text-align: right; border: 1px solid #cbd5e1;">Temp (°C)</th>
+                <th style="padding: 8px 12px; text-align: right; border: 1px solid #cbd5e1;">Density @ 20°C</th>
+                <th style="padding: 8px 12px; text-align: right; border: 1px solid #cbd5e1;">VCF (20°C)</th>
+                <th style="padding: 8px 12px; text-align: right; border: 1px solid #cbd5e1;">Volume @ 20°C (L)</th>
+            </tr>
+        </thead>
+        <tbody style="font-family: monospace;">
+            <tr>
+                <td style="padding: 8px 12px; font-family: Arial, sans-serif; font-weight: bold; border: 1px solid #cbd5e1;">
+                    1. Origin / Truck Dip
+                </td>
+                <td style="padding: 8px 12px; text-align: right; border: 1px solid #cbd5e1;">
+                    {{ "{:,.2f}".format(doc.start_observed_litres or 0) }}
+                </td>
+                <td style="padding: 8px 12px; text-align: right; border: 1px solid #cbd5e1;">
+                    {{ "{:,.1f}".format(doc.start_temperature or 0) }}
+                </td>
+                <td style="padding: 8px 12px; text-align: right; border: 1px solid #cbd5e1;">
+                    {{ "{:,.1f}".format(doc.start_density_20 or 0) }}
+                </td>
+                <td style="padding: 8px 12px; text-align: right; border: 1px solid #cbd5e1;">
+                    {{ "{:.6f}".format(doc.start_factor or 1.0) }}
+                </td>
+                <td style="padding: 8px 12px; text-align: right; font-weight: bold; color: #0f172a; border: 1px solid #cbd5e1;">
+                    {{ "{:,.2f}".format(doc.origin_vol20 or doc.start_vol20 or 0) }}
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 8px 12px; font-family: Arial, sans-serif; font-weight: bold; border: 1px solid #cbd5e1;">
+                    2. Destination / Discharge (Meters)
+                </td>
+                <td style="padding: 8px 12px; text-align: right; border: 1px solid #cbd5e1;">
+                    {{ "{:,.2f}".format(doc.metered_total or doc.final_observed_litres or 0) }}
+                </td>
+                <td style="padding: 8px 12px; text-align: right; border: 1px solid #cbd5e1;">
+                    {{ "{:,.1f}".format(doc.final_temperature or doc.start_temperature or 0) }}
+                </td>
+                <td style="padding: 8px 12px; text-align: right; border: 1px solid #cbd5e1;">
+                    {{ "{:,.1f}".format(doc.final_density_20 or doc.start_density_20 or 0) }}
+                </td>
+                <td style="padding: 8px 12px; text-align: right; border: 1px solid #cbd5e1;">
+                    {{ "{:.6f}".format(doc.final_factor or 1.0) }}
+                </td>
+                <td style="padding: 8px 12px; text-align: right; font-weight: bold; color: #0f172a; border: 1px solid #cbd5e1;">
+                    {{ "{:,.2f}".format(doc.final_vol20 or 0) }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Shortage & Debit Calculation Box -->
+    <div style="background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 16px; margin-bottom: 20px;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+            <tr>
+                <td style="padding: 6px 0; color: #475569;">Physical Shortage (|Origin Vol20 - Discharge Vol20|):</td>
+                <td style="padding: 6px 0; text-align: right; font-family: monospace; font-weight: bold; font-size: 14px;">
+                    {{ "{:,.2f}".format(doc.loss_volume or 0) }} L
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 6px 0; color: #475569;">Contract Allowable Loss ({{ doc.allowable_loss_percent or 0.12 }}%):</td>
+                <td style="padding: 6px 0; text-align: right; font-family: monospace;">
+                    {{ doc.allowed_loss_volume or 0 }} L ({{ "{:,.2f}".format(doc.allowed_loss_2dp or 0) }})
+                </td>
+            </tr>
+            <tr style="border-top: 1px solid #e2e8f0;">
+                <td style="padding: 8px 0; font-weight: bold; color: #be123c;">
+                    Shortage Claimed (Debit Volume):
+                    <div style="font-size: 10px; color: #64748b; font-weight: normal;">
+                        {% if (doc.loss_volume or 0) > 150 %}
+                            Branch 2 (> 150 L): Entire shortage debited with NO allowance deducted.
+                        {% elif (doc.debit_volume or 0) > 0 %}
+                            Branch 1 (&le; 150 L): Excess over 2-decimal allowed exceeds 0.5 L buffer.
+                        {% else %}
+                            Within contractual allowance: No debit applies.
+                        {% endif %}
+                    </div>
+                </td>
+                <td style="padding: 8px 0; text-align: right; font-family: monospace; font-weight: 900; font-size: 18px; color: #be123c;">
+                    {{ "{:,.2f}".format(doc.debit_volume or 0) }} L
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 6px 0; color: #475569;">Contract Tariff (Price per Litre):</td>
+                <td style="padding: 6px 0; text-align: right; font-family: monospace;">
+                    {{ "{:,.4f}".format(doc.price_per_litre or 0) }} ETB / L
+                </td>
+            </tr>
+            <tr style="background-color: #fef3c7; border: 1px solid #fcd34d; font-size: 15px;">
+                <td style="padding: 10px 12px; font-weight: 900; text-transform: uppercase; color: #78350f;">
+                    Total Amount Payable:
+                </td>
+                <td style="padding: 10px 12px; text-align: right; font-family: monospace; font-weight: 900; font-size: 20px; color: #78350f;">
+                    {{ "{:,.2f}".format(doc.debit_amount or 0) }} ETB
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- GL Accounting Coding Section -->
+    <div style="border: 1px solid #e2e8f0; border-radius: 4px; padding: 10px 14px; margin-bottom: 30px; font-size: 11px; font-family: monospace;">
+        <span style="font-family: Arial, sans-serif; font-weight: bold; text-transform: uppercase; color: #475569; display: block; margin-bottom: 4px;">
+            ERPNext / Sage 300 GL Journal Entry Coding:
+        </span>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 2px;">
+            <span>Dr 122010-100 (Transporter Receivables - {{ doc.carrier_name or 'Fleet' }})</span>
+            <strong>{{ "{:,.2f}".format(doc.debit_amount or 0) }} ETB</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between; color: #64748b;">
+            <span>Cr 161022 (Inventory Loss Recovery Account)</span>
+            <strong>{{ "{:,.2f}".format(doc.debit_amount or 0) }} ETB</strong>
+        </div>
+    </div>
+
+    <!-- Signatures Block -->
+    <table style="width: 100%; border-collapse: collapse; font-size: 12px; text-align: center; margin-top: 40px;">
+        <tr>
+            <td style="width: 33%; border-top: 1px solid #0f172a; padding-top: 6px;">
+                <strong>Prepared By</strong>
+                <div style="height: 45px;"></div>
+                <span style="font-size: 11px; color: #64748b;">Operator Signature & Date</span>
+            </td>
+            <td style="width: 33%; border-top: 1px solid #0f172a; padding-top: 6px;">
+                <strong>Verified By</strong>
+                <div style="height: 45px;"></div>
+                <span style="font-size: 11px; color: #64748b;">Depot Supervisor</span>
+            </td>
+            <td style="width: 33%; border-top: 1px solid #0f172a; padding-top: 6px;">
+                <strong>Transporter / Driver</strong>
+                <div style="height: 45px;"></div>
+                <span style="font-size: 11px; color: #64748b;">Acknowledged & Signed</span>
+            </td>
+        </tr>
+    </table>
+
+</div>

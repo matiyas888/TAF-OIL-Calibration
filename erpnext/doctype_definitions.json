@@ -1,0 +1,519 @@
+{
+  "doctypes": [
+    {
+      "name": "Transhipment Order",
+      "module": "Stock",
+      "custom": 1,
+      "is_submittable": 1,
+      "autoname": "format:TO-{YYYY}{MM}{DD}-{plate_no}",
+      "fields": [
+        {
+          "fieldname": "basic_section",
+          "fieldtype": "Section Break",
+          "label": "Basic Information"
+        },
+        {
+          "fieldname": "to_number",
+          "fieldtype": "Data",
+          "label": "Transfer Order No",
+          "reqd": 1,
+          "in_list_view": 1,
+          "bold": 1
+        },
+        {
+          "fieldname": "posting_date",
+          "fieldtype": "Date",
+          "label": "Posting Date",
+          "default": "Today",
+          "reqd": 1,
+          "in_list_view": 1
+        },
+        {
+          "fieldname": "reference",
+          "fieldtype": "Data",
+          "label": "Waybill / Reference (FDC)",
+          "in_list_view": 1
+        },
+        {
+          "fieldname": "column_break_1",
+          "fieldtype": "Column Break"
+        },
+        {
+          "fieldname": "company",
+          "fieldtype": "Link",
+          "options": "Company",
+          "label": "Company",
+          "reqd": 1
+        },
+        {
+          "fieldname": "warehouse",
+          "fieldtype": "Link",
+          "options": "Warehouse",
+          "label": "Depot Warehouse"
+        },
+        {
+          "fieldname": "vehicle_section",
+          "fieldtype": "Section Break",
+          "label": "Vehicle, Carrier & Driver Information"
+        },
+        {
+          "fieldname": "plate_no",
+          "fieldtype": "Link",
+          "options": "Truck Header",
+          "label": "Truck Plate No",
+          "reqd": 1,
+          "in_list_view": 1
+        },
+        {
+          "fieldname": "trailer_plate_no",
+          "fieldtype": "Data",
+          "label": "Trailer Plate No",
+          "read_only": 1
+        },
+        {
+          "fieldname": "carrier_name",
+          "fieldtype": "Data",
+          "label": "Carrier / Transporter",
+          "read_only": 1
+        },
+        {
+          "fieldname": "column_break_2",
+          "fieldtype": "Column Break"
+        },
+        {
+          "fieldname": "driver_name",
+          "fieldtype": "Data",
+          "label": "Driver Name",
+          "read_only": 1
+        },
+        {
+          "fieldname": "driver_licence_no",
+          "fieldtype": "Data",
+          "label": "Driver Licence No",
+          "read_only": 1
+        },
+        {
+          "fieldname": "nominal_capacity",
+          "fieldtype": "Float",
+          "label": "Truck Capacity (Litres)",
+          "read_only": 1
+        },
+        {
+          "fieldname": "product_section",
+          "fieldtype": "Section Break",
+          "label": "Product & Contract Commercial Terms"
+        },
+        {
+          "fieldname": "product_item_number",
+          "fieldtype": "Link",
+          "options": "Item",
+          "label": "Product Code",
+          "reqd": 1,
+          "in_list_view": 1
+        },
+        {
+          "fieldname": "product_name",
+          "fieldtype": "Data",
+          "label": "Product Description",
+          "read_only": 1
+        },
+        {
+          "fieldname": "column_break_3",
+          "fieldtype": "Column Break"
+        },
+        {
+          "fieldname": "allowable_loss_percent",
+          "fieldtype": "Percent",
+          "label": "Allowable Loss %",
+          "default": "0.12",
+          "reqd": 1
+        },
+        {
+          "fieldname": "price_per_litre",
+          "fieldtype": "Currency",
+          "label": "Contract Price / Litre (ETB)",
+          "default": "319.76",
+          "reqd": 1
+        },
+        {
+          "fieldname": "origin_section",
+          "fieldtype": "Section Break",
+          "label": "Origin / Loading Dispatch Readings"
+        },
+        {
+          "fieldname": "start_density",
+          "fieldtype": "Float",
+          "label": "Loading Observed Density (kg/m3)",
+          "precision": "2"
+        },
+        {
+          "fieldname": "start_temperature",
+          "fieldtype": "Float",
+          "label": "Loading Temperature (°C)",
+          "precision": "1"
+        },
+        {
+          "fieldname": "start_density_20",
+          "fieldtype": "Float",
+          "label": "Loading Density @ 20°C (kg/m3)",
+          "precision": "1",
+          "read_only": 1
+        },
+        {
+          "fieldname": "start_vcf_20",
+          "fieldtype": "Float",
+          "label": "Loading VCF Factor @ 20°C",
+          "precision": "6",
+          "read_only": 1
+        },
+        {
+          "fieldname": "column_break_4",
+          "fieldtype": "Column Break"
+        },
+        {
+          "fieldname": "origin_observed_litres",
+          "fieldtype": "Float",
+          "label": "Origin Observed Litres",
+          "precision": "0"
+        },
+        {
+          "fieldname": "origin_vol20",
+          "fieldtype": "Float",
+          "label": "Standard Volume @ 20°C (Loading L)",
+          "precision": "0",
+          "reqd": 1,
+          "bold": 1
+        },
+        {
+          "fieldname": "meter_section",
+          "fieldtype": "Section Break",
+          "label": "Depot Reception Discharge Meter Readings"
+        },
+        {
+          "fieldname": "meter_reading_to_1",
+          "fieldtype": "Float",
+          "label": "Meter 1 Final Reading (L)",
+          "precision": "0"
+        },
+        {
+          "fieldname": "meter_reading_from_1",
+          "fieldtype": "Float",
+          "label": "Meter 1 Initial Reading (L)",
+          "precision": "0"
+        },
+        {
+          "fieldname": "drained_1",
+          "fieldtype": "Float",
+          "label": "Meter 1 Drained (L)",
+          "precision": "0",
+          "default": "0"
+        },
+        {
+          "fieldname": "column_break_5",
+          "fieldtype": "Column Break"
+        },
+        {
+          "fieldname": "meter_reading_to_2",
+          "fieldtype": "Float",
+          "label": "Meter 2 Final Reading (L)",
+          "precision": "0"
+        },
+        {
+          "fieldname": "meter_reading_from_2",
+          "fieldtype": "Float",
+          "label": "Meter 2 Initial Reading (L)",
+          "precision": "0"
+        },
+        {
+          "fieldname": "drained_2",
+          "fieldtype": "Float",
+          "label": "Meter 2 Drained (L)",
+          "precision": "0",
+          "default": "0"
+        },
+        {
+          "fieldname": "discharge_metered_litres",
+          "fieldtype": "Float",
+          "label": "Total Discharge Metered Litres",
+          "precision": "0",
+          "read_only": 1,
+          "bold": 1
+        },
+        {
+          "fieldname": "discharge_lab_section",
+          "fieldtype": "Section Break",
+          "label": "Depot Reception Lab & Standard Density"
+        },
+        {
+          "fieldname": "final_density",
+          "fieldtype": "Float",
+          "label": "Discharge Observed Density (kg/m3)",
+          "precision": "2"
+        },
+        {
+          "fieldname": "final_temperature",
+          "fieldtype": "Float",
+          "label": "Discharge Temperature (°C)",
+          "precision": "1"
+        },
+        {
+          "fieldname": "sg_15_dj_1",
+          "fieldtype": "Float",
+          "label": "SG15 / Density Sample 1",
+          "precision": "4"
+        },
+        {
+          "fieldname": "sg_15_dj_2",
+          "fieldtype": "Float",
+          "label": "SG15 / Density Sample 2",
+          "precision": "4"
+        },
+        {
+          "fieldname": "column_break_6",
+          "fieldtype": "Column Break"
+        },
+        {
+          "fieldname": "final_density_20",
+          "fieldtype": "Float",
+          "label": "Discharge Density @ 20°C (kg/m3)",
+          "precision": "1",
+          "read_only": 1
+        },
+        {
+          "fieldname": "final_vcf_20",
+          "fieldtype": "Float",
+          "label": "Discharge VCF Factor @ 20°C",
+          "precision": "6",
+          "read_only": 1
+        },
+        {
+          "fieldname": "final_vol20",
+          "fieldtype": "Float",
+          "label": "Discharge Standard Volume @ 20°C (L)",
+          "precision": "0",
+          "read_only": 1,
+          "bold": 1
+        },
+        {
+          "fieldname": "loss_section",
+          "fieldtype": "Section Break",
+          "label": "Variance Analysis & Transporter Debit Calculation"
+        },
+        {
+          "fieldname": "volume_loss",
+          "fieldtype": "Float",
+          "label": "Physical Shortage / Loss (Litres @ 20°C)",
+          "precision": "0",
+          "read_only": 1,
+          "bold": 1
+        },
+        {
+          "fieldname": "volume_loss_percent",
+          "fieldtype": "Percent",
+          "label": "Physical Shortage %",
+          "precision": "3",
+          "read_only": 1
+        },
+        {
+          "fieldname": "allowed_loss_volume",
+          "fieldtype": "Float",
+          "label": "Contractual Allowed Loss (Litres)",
+          "precision": "0",
+          "read_only": 1
+        },
+        {
+          "fieldname": "column_break_7",
+          "fieldtype": "Column Break"
+        },
+        {
+          "fieldname": "debit_volume",
+          "fieldtype": "Float",
+          "label": "Debited Loss Volume (Litres)",
+          "precision": "0",
+          "read_only": 1,
+          "bold": 1
+        },
+        {
+          "fieldname": "debit_amount",
+          "fieldtype": "Currency",
+          "label": "Transporter Debit Amount (ETB)",
+          "precision": "2",
+          "read_only": 1,
+          "bold": 1
+        },
+        {
+          "fieldname": "is_debited",
+          "fieldtype": "Check",
+          "label": "Debit Applied",
+          "read_only": 1
+        },
+        {
+          "fieldname": "debit_rule_applied",
+          "fieldtype": "Small Text",
+          "label": "Debit Rule Assessment Reason",
+          "read_only": 1
+        },
+        {
+          "fieldname": "gl_section",
+          "fieldtype": "Section Break",
+          "label": "General Ledger Debit Note Accounting"
+        },
+        {
+          "fieldname": "debit_account",
+          "fieldtype": "Link",
+          "options": "Account",
+          "label": "Debit Account (Carrier Shortage)",
+          "default": "122010-100 - Transporter Shortages Receivable"
+        },
+        {
+          "fieldname": "credit_account",
+          "fieldtype": "Link",
+          "options": "Account",
+          "label": "Credit Account (Shortage Recovery)",
+          "default": "161022 - Petroleum Shortage Recovery"
+        },
+        {
+          "fieldname": "dip_section",
+          "fieldtype": "Section Break",
+          "label": "Truck Physical Dip Calibration Readings"
+        },
+        {
+          "fieldname": "compartment_dips",
+          "fieldtype": "Table",
+          "options": "Truck Compartment Dip",
+          "label": "Compartment Dips"
+        }
+      ]
+    },
+    {
+      "name": "Truck Header",
+      "module": "Stock",
+      "custom": 1,
+      "autoname": "field:plate_no",
+      "fields": [
+        {
+          "fieldname": "plate_no",
+          "fieldtype": "Data",
+          "label": "Truck Plate No",
+          "reqd": 1,
+          "unique": 1,
+          "in_list_view": 1
+        },
+        {
+          "fieldname": "truck_no",
+          "fieldtype": "Data",
+          "label": "Truck ID / Fleet No",
+          "in_list_view": 1
+        },
+        {
+          "fieldname": "trailer_plate_no",
+          "fieldtype": "Data",
+          "label": "Trailer Plate No",
+          "in_list_view": 1
+        },
+        {
+          "fieldname": "column_break_1",
+          "fieldtype": "Column Break"
+        },
+        {
+          "fieldname": "carrier_name",
+          "fieldtype": "Data",
+          "label": "Transporter / Carrier",
+          "in_list_view": 1
+        },
+        {
+          "fieldname": "driver_name",
+          "fieldtype": "Data",
+          "label": "Driver Full Name",
+          "in_list_view": 1
+        },
+        {
+          "fieldname": "driver_licence_no",
+          "fieldtype": "Data",
+          "label": "Driver Licence No"
+        },
+        {
+          "fieldname": "capacity_section",
+          "fieldtype": "Section Break",
+          "label": "Capacity & Calibration"
+        },
+        {
+          "fieldname": "total_capacity",
+          "fieldtype": "Float",
+          "label": "Total Capacity (Litres)",
+          "in_list_view": 1
+        },
+        {
+          "fieldname": "number_of_compartments",
+          "fieldtype": "Int",
+          "label": "Number of Compartments",
+          "default": "4"
+        },
+        {
+          "fieldname": "calibration_table",
+          "fieldtype": "Table",
+          "options": "Truck Calibration",
+          "label": "Dip Calibration Chart"
+        }
+      ]
+    },
+    {
+      "name": "Truck Calibration",
+      "module": "Stock",
+      "custom": 1,
+      "istable": 1,
+      "fields": [
+        {
+          "fieldname": "compartment_no",
+          "fieldtype": "Int",
+          "label": "Compartment #",
+          "reqd": 1,
+          "in_list_view": 1
+        },
+        {
+          "fieldname": "dip_mm",
+          "fieldtype": "Float",
+          "label": "Dip (mm)",
+          "reqd": 1,
+          "in_list_view": 1
+        },
+        {
+          "fieldname": "litres",
+          "fieldtype": "Float",
+          "label": "Calibrated Litres",
+          "reqd": 1,
+          "in_list_view": 1
+        }
+      ]
+    },
+    {
+      "name": "Truck Compartment Dip",
+      "module": "Stock",
+      "custom": 1,
+      "istable": 1,
+      "fields": [
+        {
+          "fieldname": "compartment_no",
+          "fieldtype": "Int",
+          "label": "Compartment #",
+          "reqd": 1,
+          "in_list_view": 1
+        },
+        {
+          "fieldname": "dip_mm",
+          "fieldtype": "Float",
+          "label": "Measured Dip (mm)",
+          "reqd": 1,
+          "in_list_view": 1
+        },
+        {
+          "fieldname": "volume_litres",
+          "fieldtype": "Float",
+          "label": "Volume (Litres)",
+          "read_only": 1,
+          "in_list_view": 1
+        }
+      ]
+    }
+  ]
+}
